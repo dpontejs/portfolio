@@ -1,8 +1,16 @@
+---
+interface Props {
+  label: string;
+}
+
+const { label } = Astro.props;
+---
+
 <button
   id="theme-toggle"
   type="button"
   class="grid size-9 place-items-center rounded-md border border-border text-muted transition-colors hover:bg-surface hover:text-fg"
-  aria-label="Toggle dark mode"
+  aria-label={label}
 >
   <!-- Sun: shown in dark mode (click to go light) -->
   <svg

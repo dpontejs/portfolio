@@ -14,7 +14,7 @@ Static site built with **Astro**, served by Caddy on my own infrastructure ([inf
 Each item is a vertical slice tracked as a GitHub issue.
 
 - [x] **Scaffold and design system** — Astro + Tailwind, layout, light/dark theme, Python color palette.
-- [ ] **Home, about and experience** — content from my resume, in English and Portuguese.
+- [x] **Home, about and experience** — content from my resume, in English and Portuguese.
 - [ ] **Projects from GitHub** — project cards generated at build time from public repos.
 - [ ] **Notes / blog** — short technical write-ups in MDX.
 - [ ] **Deploy and quality checks** — Docker image, deploy via the infra pipeline, Lighthouse CI.
@@ -24,6 +24,7 @@ Each item is a vertical slice tracked as a GitHub issue.
 Each step is documented as a didactic guide: concepts, walkthrough of the code, decisions, exercises and pitfalls.
 
 1. [Scaffold and design system](docs/guide/01-scaffold-and-design-system.md)
+2. [Content from data files, in two languages](docs/guide/02-content-and-i18n.md)
 
 ## Development
 

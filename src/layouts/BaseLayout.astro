@@ -2,6 +2,8 @@
 import "../styles/global.css";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
+import { languageTags } from "../i18n/config";
+import { alternates, getLocaleFromUrl, useTranslations } from "../i18n/utils";
 import { initTheme } from "../lib/theme";
 
 interface Props {
@@ -9,29 +11,34 @@ interface Props {
   description?: string;
 }
 
-const {
-  title = "Diego Ponte — Machine Learning Engineer",
-  description = "Machine Learning Engineer working on AI engineering, computer vision, deep learning, RAG and LLMs.",
-} = Astro.props;
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+const { title = t("meta.title"), description = t("meta.description") } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
+const versions = alternates(Astro.url.pathname);
 // Inline, blocking on purpose: sets the theme before the first paint (no flash of the wrong theme).
 const themeScript = `(${initTheme.toString()})()`;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={languageTags[locale]}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {versions.map((v) => (
+      <link rel="alternate" hreflang={v.lang} href={new URL(v.path, Astro.site)} />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={new URL(versions[0].path, Astro.site)} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={languageTags[locale].replace("-", "_")} />
     <meta name="theme-color" content="#306998" />
     <script is:inline set:html={themeScript} />
   </head>
@@ -40,12 +47,12 @@ const themeScript = `(${initTheme.toString()})()`;
       href="#main"
       class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:rounded focus:bg-accent focus:px-3 focus:py-2 focus:text-accent-fg"
     >
-      Skip to content
+      {t("a11y.skip")}
     </a>
-    <Header />
+    <Header locale={locale} />
     <main id="main" class="mx-auto w-full max-w-3xl flex-1 px-4 py-12 sm:px-6">
       <slot />
     </main>
-    <Footer />
+    <Footer locale={locale} />
   </body>
 </html>
