@@ -42,7 +42,7 @@ export interface Profile {
 const links: Link[] = [
   { label: "GitHub", href: "https://github.com/dpontejs" },
   { label: "LinkedIn", href: "https://linkedin.com/in/diegopontejs" },
-  { label: "Email", href: "mailto:dpontejs@gmail.com" },
+  { label: "Email", href: "mailto:diego@diegoponte.dev" },
 ];
 
 const stack = [
@@ -187,7 +187,7 @@ export const profile: Record<Locale, Profile> = {
     links: [
       { label: "GitHub", href: "https://github.com/dpontejs" },
       { label: "LinkedIn", href: "https://linkedin.com/in/diegopontejs" },
-      { label: "E-mail", href: "mailto:dpontejs@gmail.com" },
+      { label: "E-mail", href: "mailto:diego@diegoponte.dev" },
     ],
     experience: [
       {

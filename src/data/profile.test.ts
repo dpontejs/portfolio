@@ -49,4 +49,12 @@ describe("profile data", () => {
     expect(hrefs).toContain("https://linkedin.com/in/diegopontejs");
     expect(hrefs.some((h) => h.startsWith("mailto:"))).toBe(true);
   });
+
+  it("uses the domain email in both languages", () => {
+    for (const locale of [en, pt]) {
+      expect(locale.links.find((l) => l.href.startsWith("mailto:"))?.href).toBe(
+        "mailto:diego@diegoponte.dev",
+      );
+    }
+  });
 });
