@@ -13,6 +13,35 @@ export interface Project {
 /** Featured projects, in display order. Only public repositories belong here. */
 export const projects: Project[] = [
   {
+    repo: "infra",
+    year: 2026,
+    tags: ["Terraform", "Ansible", "Docker", "Caddy", "GitHub Actions", "Python"],
+    text: {
+      en: {
+        title: "Personal Cloud Infrastructure",
+        summary:
+          "Infrastructure as code for the VPS that hosts this site: provisioned with Terraform, configured with Ansible, services in Docker behind Caddy with automatic HTTPS, and pull-based deploys with automatic rollback.",
+        highlights: [
+          "Hetzner server, firewall and Cloudflare DNS as Terraform code, tested with mocked providers.",
+          "Server hardening with Ansible: SSH keys only, two firewall layers, fail2ban and automatic security updates, idempotent and linted.",
+          "Deploy agent in Python: the server pulls new images, waits for the healthcheck and rolls back unhealthy versions, validated by an integration test against a real Docker registry.",
+          "Every step documented as a didactic guide, including the real bugs found along the way.",
+        ],
+      },
+      pt: {
+        title: "Infraestrutura de Nuvem Pessoal",
+        summary:
+          "Infraestrutura como código da VPS que hospeda este site: provisionada com Terraform, configurada com Ansible, serviços em Docker atrás do Caddy com HTTPS automático e deploy pull-based com rollback automático.",
+        highlights: [
+          "Servidor na Hetzner, firewall e DNS na Cloudflare como código Terraform, testados com providers simulados.",
+          "Hardening com Ansible: login só por chave SSH, duas camadas de firewall, fail2ban e atualizações de segurança automáticas, idempotente e com lint.",
+          "Agente de deploy em Python: o servidor baixa imagens novas, espera o healthcheck e faz rollback de versões doentes, validado por teste de integração com um registry Docker real.",
+          "Cada etapa documentada como guia didático, incluindo os bugs reais encontrados no caminho.",
+        ],
+      },
+    },
+  },
+  {
     repo: "flamengo-news",
     year: 2026,
     tags: ["Python", "LLM", "Gemini", "Web scraping", "GitHub Actions"],
@@ -37,6 +66,35 @@ export const projects: Project[] = [
           "Última partida, forma recente e classificação pela API pública da ESPN, com análise do jogo escrita por IA.",
           "Roda agendado no GitHub Actions e, se a cota do LLM acabar, ainda envia títulos, links e estatísticas.",
           "E-mails em HTML e texto puro enviados pela Resend com domínio próprio, com testes em pytest.",
+        ],
+      },
+    },
+  },
+  {
+    repo: "portfolio",
+    year: 2026,
+    tags: ["Astro", "TypeScript", "Tailwind CSS", "Playwright", "Docker"],
+    text: {
+      en: {
+        title: "diegoponte.dev",
+        summary:
+          "This website: a static Astro site in English and Portuguese, packaged as a container and deployed automatically on every merge.",
+        highlights: [
+          "Content in typed data files, i18n routing with hreflang, and a light/dark theme without flash.",
+          "Project stats fetched from the GitHub API at build time, without ever breaking the build.",
+          "Unit tests (Vitest), end-to-end tests in Chromium (Playwright) and an image smoke test in CI.",
+          "CI only turns green once the merged commit is actually live.",
+        ],
+      },
+      pt: {
+        title: "diegoponte.dev",
+        summary:
+          "Este site: Astro estático em inglês e português, empacotado em container e publicado automaticamente a cada merge.",
+        highlights: [
+          "Conteúdo em arquivos de dados tipados, rotas por idioma com hreflang e tema claro/escuro sem piscar.",
+          "Estatísticas dos projetos buscadas na API do GitHub durante o build, sem nunca quebrar o build.",
+          "Testes unitários (Vitest), testes ponta a ponta no Chromium (Playwright) e smoke test da imagem no CI.",
+          "O CI só fica verde quando o commit do merge está de fato no ar.",
         ],
       },
     },
