@@ -8,7 +8,9 @@ RUN npm ci
 COPY . .
 ARG GIT_SHA=dev
 ENV GIT_SHA=${GIT_SHA}
-RUN npm run build
+# Optional GitHub token for the project stats (higher API rate limit). Mounted only for this
+# command: secrets passed this way never end up in an image layer, unlike ARG or ENV.
+RUN --mount=type=secret,id=github_token,env=GITHUB_TOKEN npm run build
 
 # ---- runtime: just Caddy and static files (~95 MB; the Node stage is discarded)
 FROM caddy:2.11.7-alpine

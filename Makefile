@@ -35,7 +35,7 @@ GIT_SHA ?= $(shell git rev-parse HEAD)
 
 # Production image (multi-stage: Node builds, Caddy serves).
 image:
-	docker build --build-arg GIT_SHA=$(GIT_SHA) -t $(IMAGE) .
+	docker build --build-arg GIT_SHA=$(GIT_SHA) --secret id=github_token,env=GITHUB_TOKEN -t $(IMAGE) .
 
 # Starts the image and checks health, pages, version.json and cache headers.
 image-test: image

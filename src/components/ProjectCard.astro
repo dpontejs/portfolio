@@ -1,0 +1,67 @@
+---
+import type { Project } from "../data/projects";
+import type { Locale } from "../i18n/config";
+import { formatMonth, useTranslations } from "../i18n/utils";
+import type { RepoStats } from "../lib/github";
+
+interface Props {
+  project: Project;
+  stats?: RepoStats;
+  locale: Locale;
+}
+
+const { project, stats, locale } = Astro.props;
+const t = useTranslations(locale);
+const text = project.text[locale];
+const repoUrl = stats?.url ?? `https://github.com/dpontejs/${project.repo}`;
+const demo = project.demo ?? stats?.homepage ?? undefined;
+---
+
+<article class="flex flex-col gap-4 rounded-lg border border-border bg-surface p-5 transition-colors hover:border-accent">
+  <header class="space-y-1">
+    <div class="flex items-baseline justify-between gap-3">
+      <h3 class="text-lg font-semibold">
+        <a href={repoUrl} class="hover:text-accent">
+          {text.title}
+        </a>
+      </h3>
+      <span class="shrink-0 font-mono text-sm text-muted">{project.year}</span>
+    </div>
+    <p class="leading-relaxed text-muted">{text.summary}</p>
+  </header>
+
+  <ul class="list-disc space-y-1 pl-5 text-sm leading-relaxed marker:text-muted">
+    {text.highlights.map((h) => (
+      <li>{h}</li>
+    ))}
+  </ul>
+
+  <ul class="flex flex-wrap gap-2" aria-label="Tags">
+    {project.tags.map((tag) => (
+      <li class="rounded border border-border bg-bg px-2 py-0.5 font-mono text-xs">{tag}</li>
+    ))}
+  </ul>
+
+  <footer class="mt-auto flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-border pt-3 text-sm">
+    <a href={repoUrl} class="font-medium text-accent hover:underline">
+      {t("projects.code")} →
+    </a>
+    {demo && (
+      <a href={demo} class="font-medium text-accent hover:underline">
+        {t("projects.demo")} →
+      </a>
+    )}
+    {stats && (
+      <p class="ml-auto flex items-center gap-3 font-mono text-xs text-muted" data-testid="stats">
+        {stats.language && <span>{stats.language}</span>}
+        {stats.stars > 0 && (
+          <span aria-label={`${t("projects.stars")}: ${stats.stars}`}>★ {stats.stars}</span>
+        )}
+        <span>
+          {t("projects.updated")}{" "}
+          <time datetime={stats.pushedAt}>{formatMonth(stats.pushedAt.slice(0, 7), locale)}</time>
+        </span>
+      </p>
+    )}
+  </footer>
+</article>

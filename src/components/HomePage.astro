@@ -1,7 +1,10 @@
 ---
 import { profile } from "../data/profile";
+import { projects } from "../data/projects";
 import type { Locale } from "../i18n/config";
 import { formatPeriod, useTranslations } from "../i18n/utils";
+import { fetchRepoStats } from "../lib/github";
+import ProjectCard from "./ProjectCard.astro";
 import Section from "./Section.astro";
 
 interface Props {
@@ -11,6 +14,8 @@ interface Props {
 const { locale } = Astro.props;
 const t = useTranslations(locale);
 const p = profile[locale];
+// Build time only: the visitor's browser never calls the GitHub API.
+const stats = await fetchRepoStats(projects.map((project) => project.repo));
 ---
 
 <div class="space-y-20">
@@ -43,6 +48,20 @@ const p = profile[locale];
         <p>{paragraph}</p>
       ))}
     </div>
+  </Section>
+
+  <Section id="projects" title={t("nav.projects")}>
+    <div class="grid gap-5">
+      {projects.map((project) => (
+        <ProjectCard project={project} stats={stats.get(project.repo)} locale={locale} />
+      ))}
+    </div>
+    <a
+      href="https://github.com/dpontejs?tab=repositories"
+      class="inline-block font-medium text-accent hover:underline"
+    >
+      {t("projects.more")} →
+    </a>
   </Section>
 
   <Section id="experience" title={t("nav.experience")}>

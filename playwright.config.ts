@@ -18,6 +18,7 @@ export default defineConfig({
     url: "http://localhost:4321",
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
-    env: { GIT_SHA: TEST_GIT_SHA },
+    // Offline: e2e must not depend on GitHub's API (src/lib/github.ts handles that path).
+    env: { GIT_SHA: TEST_GIT_SHA, GITHUB_OFFLINE: "1" },
   },
 });

@@ -15,7 +15,7 @@ Each item is a vertical slice tracked as a GitHub issue.
 
 - [x] **Scaffold and design system** — Astro + Tailwind, layout, light/dark theme, Python color palette.
 - [x] **Home, about and experience** — content from my resume, in English and Portuguese.
-- [ ] **Projects from GitHub** — project cards generated at build time from public repos.
+- [x] **Projects from GitHub** — project cards generated at build time from public repos.
 - [ ] **Notes / blog** — short technical write-ups in MDX.
 - [ ] **Deploy and quality checks** — Docker image, deploy via the infra pipeline, Lighthouse CI.
 
@@ -27,6 +27,7 @@ Each step is documented as a didactic guide: concepts, walkthrough of the code, 
 2. [Content from data files, in two languages](docs/guide/02-content-and-i18n.md)
 3. [Packaging the site as a container image](docs/guide/03-container-image.md)
 4. [Continuous deployment: from merge to live site](docs/guide/04-continuous-deployment.md)
+5. [Projects section with live data from GitHub](docs/guide/05-projects-from-github.md)
 
 ## Development
 

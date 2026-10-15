@@ -12,6 +12,7 @@ const { locale } = Astro.props;
 const t = useTranslations(locale);
 const sections = [
   { id: "about", label: t("nav.about") },
+  { id: "projects", label: t("nav.projects") },
   { id: "experience", label: t("nav.experience") },
   { id: "skills", label: t("nav.skills") },
   { id: "education", label: t("nav.education") },
@@ -25,7 +26,7 @@ const sections = [
       <span class="text-muted">ponte</span>
       <span class="text-highlight-fg">.dev</span>
     </a>
-    <nav class="hidden gap-5 text-sm text-muted md:flex">
+    <nav class="hidden gap-5 text-sm text-muted lg:flex">
       {sections.map((s) => (
         <a href={`#${s.id}`} class="hover:text-fg">
           {s.label}

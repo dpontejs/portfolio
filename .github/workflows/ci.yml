@@ -43,6 +43,8 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - run: make image IMAGE=$IMAGE:sha-$GITHUB_SHA GIT_SHA=$GITHUB_SHA
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # project stats from the GitHub API
       - run: scripts/smoke-image.sh $IMAGE:sha-$GITHUB_SHA $GITHUB_SHA
       - if: github.ref == 'refs/heads/main'
         uses: docker/login-action@v4
