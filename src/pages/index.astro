@@ -1,33 +1,8 @@
 ---
+import HomePage from "../components/HomePage.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout>
-  <section class="space-y-6">
-    <p class="font-mono text-sm text-accent">Hi, I'm</p>
-    <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">Diego Ponte</h1>
-    <p class="text-xl text-muted">
-      Machine Learning Engineer · AI Engineering &amp; Computer Vision · Deep Learning, RAG &amp;
-      LLMs
-    </p>
-    <div class="h-1 w-16 rounded bg-highlight" aria-hidden="true"></div>
-    <p class="max-w-prose leading-relaxed">
-      I build machine learning systems that work in real applications, from medical imaging to
-      generative AI. This site is being built in the open: more sections are coming soon.
-    </p>
-    <div class="flex flex-wrap gap-3">
-      <a
-        href="https://github.com/dpontejs"
-        class="rounded-md bg-accent px-4 py-2 font-medium text-accent-fg transition-opacity hover:opacity-90"
-      >
-        GitHub
-      </a>
-      <a
-        href="https://linkedin.com/in/diegopontejs"
-        class="rounded-md border border-border px-4 py-2 font-medium transition-colors hover:bg-surface"
-      >
-        LinkedIn
-      </a>
-    </div>
-  </section>
+  <HomePage locale="en" />
 </BaseLayout>

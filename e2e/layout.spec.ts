@@ -1,14 +1,16 @@
 import { expect, test } from "@playwright/test";
 
-for (const width of [360, 768, 1280]) {
-  test(`no horizontal scroll at ${width}px`, async ({ page }) => {
-    await page.setViewportSize({ width, height: 800 });
-    await page.goto("/");
-    const overflow = await page.evaluate(
-      () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
-    );
-    expect(overflow).toBe(0);
-  });
+for (const path of ["/", "/pt/"]) {
+  for (const width of [360, 768, 1280]) {
+    test(`no horizontal scroll on ${path} at ${width}px`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 800 });
+      await page.goto(path);
+      const overflow = await page.evaluate(
+        () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      );
+      expect(overflow).toBe(0);
+    });
+  }
 }
 
 test("has title, description and a single h1", async ({ page }) => {

@@ -1,0 +1,30 @@
+---
+import type { Locale } from "../i18n/config";
+import { alternates, useTranslations } from "../i18n/utils";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const versions = alternates(Astro.url.pathname);
+---
+
+<nav aria-label={t("a11y.languages")} class="flex items-center gap-1 font-mono text-sm">
+  {versions.map((v) => (
+    <a
+      href={v.path}
+      hreflang={v.lang}
+      lang={v.lang}
+      aria-current={v.locale === locale ? "true" : undefined}
+      aria-label={useTranslations(v.locale)("language.name")}
+      class:list={[
+        "rounded px-2 py-1 uppercase transition-colors",
+        v.locale === locale ? "bg-surface text-fg" : "text-muted hover:text-fg",
+      ]}
+    >
+      {v.locale}
+    </a>
+  ))}
+</nav>
