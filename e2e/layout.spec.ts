@@ -25,3 +25,16 @@ test("skip link moves focus to the main content", async ({ page }) => {
   await page.keyboard.press("Tab");
   await expect(page.getByRole("link", { name: "Skip to content" })).toBeFocused();
 });
+
+test("has a social preview image", async ({ page, request }) => {
+  await page.goto("/");
+  const image = page.locator('meta[property="og:image"]');
+  await expect(image).toHaveAttribute("content", "https://diegoponte.dev/og.png");
+  await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute(
+    "content",
+    "summary_large_image",
+  );
+  const png = await request.get("/og.png");
+  expect(png.ok()).toBe(true);
+  expect(png.headers()["content-type"]).toBe("image/png");
+});
