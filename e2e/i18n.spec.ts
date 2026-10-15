@@ -56,3 +56,10 @@ test("section links in the header jump to the sections", async ({ page }) => {
   await expect(page).toHaveURL(/#skills$/);
   await expect(page.getByRole("heading", { level: 2, name: "Skills" })).toBeInViewport();
 });
+
+test("current roles show as ongoing in both languages", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator("#experience").getByText(/– Present/)).toHaveCount(2);
+  await page.goto("/pt/");
+  await expect(page.locator("#experience").getByText(/– Atual/)).toHaveCount(2);
+});
