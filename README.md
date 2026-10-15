@@ -13,11 +13,30 @@ Static site built with **Astro**, served by Caddy on my own infrastructure ([inf
 
 Each item is a vertical slice tracked as a GitHub issue.
 
-- [ ] **Scaffold and design system** — Astro + Tailwind, layout, light/dark theme, Python color palette.
+- [x] **Scaffold and design system** — Astro + Tailwind, layout, light/dark theme, Python color palette.
 - [ ] **Home, about and experience** — content from my resume, in English and Portuguese.
 - [ ] **Projects from GitHub** — project cards generated at build time from public repos.
 - [ ] **Notes / blog** — short technical write-ups in MDX.
 - [ ] **Deploy and quality checks** — Docker image, deploy via the infra pipeline, Lighthouse CI.
+
+## Learning guide
+
+Each step is documented as a didactic guide: concepts, walkthrough of the code, decisions, exercises and pitfalls.
+
+1. [Scaffold and design system](docs/guide/01-scaffold-and-design-system.md)
+
+## Development
+
+Requirements: Node.js ≥ 22.
+
+```bash
+make install    # install dependencies
+make dev        # http://localhost:4321 with hot reload
+make test       # unit tests (Vitest)
+make test-e2e   # end-to-end tests in Chromium (Playwright)
+make lint       # astro check + ESLint + Prettier
+make build      # static site in dist/
+```
 
 ## License
 
