@@ -56,3 +56,21 @@ jobs:
           docker tag $IMAGE:sha-$GITHUB_SHA $IMAGE:main
           docker push $IMAGE:sha-$GITHUB_SHA
           docker push $IMAGE:main
+
+  # The VPS pulls :main every minute (infra repo, docs/features/auto-deploy.md). This job only
+  # watches the public site until it serves this commit; red = not deployed or rolled back.
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: image
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    # A newer merge supersedes an older one: its commit would never go live, so cancel the old wait.
+    concurrency:
+      group: deploy-production
+      cancel-in-progress: true
+    environment:
+      name: production
+      url: https://diegoponte.dev
+    steps:
+      - uses: actions/checkout@v7
+      - run: scripts/wait-for-deploy.sh https://diegoponte.dev $GITHUB_SHA 300

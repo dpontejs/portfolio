@@ -26,6 +26,7 @@ Each step is documented as a didactic guide: concepts, walkthrough of the code, 
 1. [Scaffold and design system](docs/guide/01-scaffold-and-design-system.md)
 2. [Content from data files, in two languages](docs/guide/02-content-and-i18n.md)
 3. [Packaging the site as a container image](docs/guide/03-container-image.md)
+4. [Continuous deployment: from merge to live site](docs/guide/04-continuous-deployment.md)
 
 ## Development
 
