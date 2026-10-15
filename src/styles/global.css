@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+/* `dark:` utilities follow the data-theme attribute set by src/lib/theme.ts, not only the OS setting. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* Brand palette: the Python logo colors. Use the semantic tokens below in components. */
+@theme {
+  --color-python-blue-dark: #306998;
+  --color-python-blue: #3776ab;
+  --color-python-blue-light: #4b8bbe;
+  --color-python-yellow: #ffd43b;
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/*
+ * Semantic tokens: components ask for "background" or "accent", never for a raw color.
+ * Switching theme only redefines these variables. Every text/background pair keeps a WCAG AA
+ * contrast ratio of at least 4.5:1.
+ */
+:root {
+  --bg: #ffffff;
+  --surface: #f6f8fa;
+  --fg: #1f2328;
+  --muted: #59636e;
+  --border: #d1d9e0;
+  --accent: #306998;
+  --accent-fg: #ffffff;
+  --highlight: #ffd43b;
+  --highlight-fg: #9a6700; /* yellow for text: #ffd43b on white is unreadable (1.4:1) */
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --bg: #0d1117;
+  --surface: #151b23;
+  --fg: #e6edf3;
+  --muted: #9198a1;
+  --border: #3d444d;
+  --accent: #6ea8d6;
+  --accent-fg: #0d1117;
+  --highlight: #ffd43b;
+  --highlight-fg: #ffd43b;
+  color-scheme: dark;
+}
+
+/* Exposes the variables as Tailwind colors: bg-bg, text-fg, text-muted, border-border, bg-accent… */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-highlight: var(--highlight);
+  --color-highlight-fg: var(--highlight-fg);
+}
+
+@layer base {
+  html {
+    @apply bg-bg text-fg antialiased;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-accent;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+    }
+  }
+}

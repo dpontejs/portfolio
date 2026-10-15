@@ -1,0 +1,21 @@
+---
+const links = [
+  { label: "GitHub", href: "https://github.com/dpontejs" },
+  { label: "LinkedIn", href: "https://linkedin.com/in/diegopontejs" },
+  { label: "Email", href: "mailto:dpontejs@gmail.com" },
+];
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-border">
+  <div class="mx-auto flex max-w-3xl flex-col gap-3 px-4 py-6 text-sm text-muted sm:flex-row sm:items-center sm:justify-between sm:px-6">
+    <p>© {year} Diego Ponte</p>
+    <nav aria-label="Social links" class="flex gap-4">
+      {links.map((link) => (
+        <a href={link.href} class="hover:text-accent">
+          {link.label}
+        </a>
+      ))}
+    </nav>
+  </div>
+</footer>

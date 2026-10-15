@@ -6,10 +6,11 @@ Personal portfolio website at diegoponte.dev — Astro static site with projects
 
 Tudo passa pelo Makefile; o hook de Stop do harness roda `make test`.
 
-- `make test`: suíte rápida (ex.: `pytest -x -q -m "not slow"`); o agente roda a cada turno que muda código
-- `make test-all`: suíte completa, com integração e evals (CI)
-- `make lint`: ruff + mypy / eslint + tsc
-- `make dev`: sobe o ambiente local
+- `make test`: testes unitários (Vitest, `src/**/*.test.ts`); o agente roda a cada turno que muda código
+- `make test-e2e`: Playwright no Chromium contra o build de produção (`e2e/`)
+- `make test-all`: unitários + e2e (CI)
+- `make lint`: astro check + ESLint + Prettier
+- `make dev`: servidor local em http://localhost:4321
 
 ## Onde fica o quê
 
