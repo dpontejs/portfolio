@@ -29,3 +29,30 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 7
+
+  # Builds the production image on every PR (catches Dockerfile breakage) and publishes it from main.
+  image:
+    needs: checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      packages: write
+    env:
+      IMAGE: ghcr.io/dpontejs/portfolio
+    steps:
+      - uses: actions/checkout@v7
+      - run: make image IMAGE=$IMAGE:sha-$GITHUB_SHA GIT_SHA=$GITHUB_SHA
+      - run: scripts/smoke-image.sh $IMAGE:sha-$GITHUB_SHA $GITHUB_SHA
+      - if: github.ref == 'refs/heads/main'
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      # :sha-<commit> is immutable (rollback target); :main moves and is what the VPS follows.
+      - if: github.ref == 'refs/heads/main'
+        run: |
+          docker tag $IMAGE:sha-$GITHUB_SHA $IMAGE:main
+          docker push $IMAGE:sha-$GITHUB_SHA
+          docker push $IMAGE:main

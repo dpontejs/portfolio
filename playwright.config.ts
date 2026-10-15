@@ -1,5 +1,8 @@
 import { defineConfig, devices } from "@playwright/test";
 
+/** Fake commit baked into the test build, checked by e2e/version.spec.ts. */
+export const TEST_GIT_SHA = "0123456789abcdef0123456789abcdef01234567";
+
 // End-to-end tests run against the production build (astro preview), in a real browser.
 export default defineConfig({
   testDir: "e2e",
@@ -15,5 +18,6 @@ export default defineConfig({
     url: "http://localhost:4321",
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
+    env: { GIT_SHA: TEST_GIT_SHA },
   },
 });
