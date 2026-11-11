@@ -7,6 +7,8 @@ export interface Project {
   tags: string[];
   /** Live demo, when there is one (otherwise the repo's homepage field is used, if set). */
   demo?: string;
+  /** Trained model on the Hugging Face Hub, for ML projects that publish one. */
+  model?: string;
   text: Record<Locale, { title: string; summary: string; highlights: string[] }>;
 }
 
@@ -37,6 +39,37 @@ export const projects: Project[] = [
           "Hardening com Ansible: login só por chave SSH, duas camadas de firewall, fail2ban e atualizações de segurança automáticas, idempotente e com lint.",
           "Agente de deploy em Python: o servidor baixa imagens novas, espera o healthcheck e faz rollback de versões doentes, validado por teste de integração com um registry Docker real.",
           "Cada etapa documentada como guia didático, incluindo os bugs reais encontrados no caminho.",
+        ],
+      },
+    },
+  },
+  {
+    repo: "classificacao_voz",
+    year: 2026,
+    tags: ["PyTorch", "Transformers", "Wav2Vec2", "ONNX", "Transformers.js", "Hugging Face"],
+    demo: "https://huggingface.co/spaces/diegomponte/speech-commands-demo",
+    model: "https://huggingface.co/diegomponte/wav2vec2-base-speech-commands-35",
+    text: {
+      en: {
+        title: "Speech Command Recognition",
+        summary:
+          "Wav2Vec2 fine-tuned to recognise 35 spoken English words, published on the Hugging Face Hub with a demo that runs the model in your browser.",
+        highlights: [
+          "97.72% accuracy on the official Speech Commands test split (11,005 clips from unseen speakers), trained in 35 minutes on a laptop GPU.",
+          "Retrained after finding that the first version's checkpoint did not reproduce its reported score; weights and metrics are now published together.",
+          "ONNX export quantized to int8 only where it is safe: 3x smaller at the same accuracy, where quantizing everything dropped it to 78%.",
+          "Static Hugging Face Space with Transformers.js: record a word and the audio never leaves the page.",
+        ],
+      },
+      pt: {
+        title: "Reconhecimento de Comandos de Voz",
+        summary:
+          "Wav2Vec2 ajustado para reconhecer 35 palavras faladas em inglês, publicado no Hugging Face Hub com uma demo que roda o modelo no seu navegador.",
+        highlights: [
+          "97,72% de acurácia no teste oficial do Speech Commands (11.005 áudios de falantes nunca vistos), treinado em 35 minutos numa GPU de notebook.",
+          "Retreinado depois de descobrir que o checkpoint da primeira versão não reproduzia o resultado publicado; agora pesos e métricas são publicados juntos.",
+          "Exportação ONNX quantizada em int8 só onde é seguro: 3x menor com a mesma acurácia, enquanto quantizar tudo derrubava para 78%.",
+          "Space estático no Hugging Face com Transformers.js: grave uma palavra e o áudio não sai da página.",
         ],
       },
     },
@@ -95,33 +128,6 @@ export const projects: Project[] = [
           "Estatísticas dos projetos buscadas na API do GitHub durante o build, sem nunca quebrar o build.",
           "Testes unitários (Vitest), testes ponta a ponta no Chromium (Playwright) e smoke test da imagem no CI.",
           "O CI só fica verde quando o commit do merge está de fato no ar.",
-        ],
-      },
-    },
-  },
-  {
-    repo: "classificacao_voz",
-    year: 2025,
-    tags: ["PyTorch", "Transformers", "Wav2Vec2", "Audio", "Gradio"],
-    text: {
-      en: {
-        title: "Speech Command Classifier",
-        summary:
-          "Fine-tuned Wav2Vec2 to classify 35 spoken commands from the Speech Commands dataset, reaching 95.37% accuracy on the test set.",
-        highlights: [
-          "Pretrained wav2vec2-base with the encoder frozen except its last two transformer layers, plus a custom classification head.",
-          "Exploration with waveforms and Mel spectrograms; evaluation with per-class metrics and a confusion matrix.",
-          "Gradio demo: upload a .wav file and get the predicted command.",
-        ],
-      },
-      pt: {
-        title: "Classificador de Comandos de Voz",
-        summary:
-          "Fine-tuning do Wav2Vec2 para classificar 35 comandos de voz da base Speech Commands, com 95,37% de acurácia no conjunto de teste.",
-        highlights: [
-          "wav2vec2-base pré-treinado com o encoder congelado, exceto as duas últimas camadas transformer, e uma cabeça de classificação própria.",
-          "Exploração com formas de onda e espectrogramas Mel; avaliação com métricas por classe e matriz de confusão.",
-          "Demo em Gradio: envie um arquivo .wav e receba o comando previsto.",
         ],
       },
     },

@@ -38,3 +38,23 @@ test("projects come right after the about section", async ({ page }) => {
   const ids = await page.locator("main section[id]").evaluateAll((els) => els.map((e) => e.id));
   expect(ids.slice(0, 3)).toEqual(["about", "projects", "experience"]);
 });
+
+test("ML projects link their demo and their model on the Hugging Face Hub", async ({ page }) => {
+  await page.goto("/");
+  for (const [i, project] of projects.entries()) {
+    if (!project.model || !project.demo) continue;
+    const card = page.locator("#projects article").nth(i);
+    await expect(card.getByRole("link", { name: "Model →" })).toHaveAttribute(
+      "href",
+      project.model,
+    );
+    await expect(card.getByRole("link", { name: "Live demo →" })).toHaveAttribute(
+      "href",
+      project.demo,
+    );
+  }
+  await page.goto("/pt/");
+  await expect(page.locator("#projects").getByRole("link", { name: "Modelo →" })).toHaveCount(
+    projects.filter((p) => p.model).length,
+  );
+});
