@@ -51,6 +51,11 @@ const demo = project.demo ?? stats?.homepage ?? undefined;
         {t("projects.demo")} →
       </a>
     )}
+    {project.model && (
+      <a href={project.model} class="font-medium text-accent hover:underline">
+        {t("projects.model")} →
+      </a>
+    )}
     {stats && (
       <p class="ml-auto flex items-center gap-3 font-mono text-xs text-muted" data-testid="stats">
         {stats.language && <span>{stats.language}</span>}

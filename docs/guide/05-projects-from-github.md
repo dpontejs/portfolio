@@ -53,7 +53,13 @@ Two smaller details:
 ## 3. The card
 
 Title (linked), year, summary, highlights, tags, and a footer with _Code →_, _Live demo →_ (when there is
-one) and the live stats. Stars only appear when there are some — "★ 0" adds nothing.
+one), _Model →_ (when the project publishes a trained model) and the live stats. Stars only appear
+when there are some — "★ 0" adds nothing.
+
+For an ML project, the model link matters as much as the code: it points to the Hugging Face Hub page
+with the weights, the model card and the measured metrics, which a recruiter can check without
+running anything. `model` is optional in `Project`, and a unit test requires it to be an
+`https://huggingface.co/` URL so a typo cannot ship a broken link.
 
 ## 4. Tests
 

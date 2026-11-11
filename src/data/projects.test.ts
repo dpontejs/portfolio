@@ -26,6 +26,13 @@ describe("projects data", () => {
     }
   });
 
+  it("links models and demos over HTTPS, models on the Hugging Face Hub", () => {
+    for (const p of projects) {
+      if (p.demo) expect(p.demo, `${p.repo} demo`).toMatch(/^https:\/\//);
+      if (p.model) expect(p.model, `${p.repo} model`).toMatch(/^https:\/\/huggingface\.co\//);
+    }
+  });
+
   it("has a plausible year and at least one tag", () => {
     for (const p of projects) {
       expect(p.year).toBeGreaterThanOrEqual(2022);
