@@ -7,3 +7,5 @@ dist/
 playwright-report/
 test-results/
 .omc/
+# semantic-release dry run output (CI)
+.next-version
